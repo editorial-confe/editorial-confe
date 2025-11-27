@@ -54,6 +54,7 @@ const BookSection: React.FC = () => {
                 src={BACK_COVER_URL} 
                 alt="Contraportada" 
                 className="gallery-img main-img" 
+                // CRITICAL: Lazy load below fold images
                 loading="lazy"
               />
               <div className="gallery-label">Contraportada</div>

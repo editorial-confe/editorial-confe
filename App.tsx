@@ -92,15 +92,14 @@ function App() {
 
   const handleDownloadPDF = () => {
       playSound('success');
-      // Simulate file download
-      const element = document.createElement("a");
-      const fileContent = "Simulación de PDF: Coloreando con Jesús y María.\nLicencia otorgada a: " + (checkoutData.email || user?.email || "cliente");
-      const file = new Blob([fileContent], {type: 'text/plain'});
-      element.href = URL.createObjectURL(file);
-      element.download = `Libro_Jesus_y_Maria_Licencia_${checkoutData.email || 'usuario'}.pdf`;
-      document.body.appendChild(element); // Required for this to work in FireFox
-      element.click();
-      document.body.removeChild(element);
+      // Usar el archivo real de la carpeta public
+      const link = document.createElement("a");
+      // Codificación de URL para caracteres especiales (tildes)
+      link.href = "/Coloreando%20con%20Jes%C3%BAs%20y%20Mar%C3%ADa%20-%20Editorial%20Confe.pdf";
+      link.download = "Coloreando con Jesús y María - Editorial Confe.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
   };
 
   const closeCheckout = () => {

@@ -525,6 +525,7 @@ const ColoringDemo: React.FC = () => {
                  alt="Fondo" 
                  className="coloring-bg-img" 
                  crossOrigin="anonymous"
+                 loading="lazy" // Added lazy loading for optimization
                />
             </div>
 

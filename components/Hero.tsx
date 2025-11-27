@@ -55,6 +55,7 @@ const Hero: React.FC = () => {
               src={COVER_URL} 
               alt="Portada del libro Coloreando con Jesús y María" 
               className="real-book-cover" 
+              // CRITICAL: Eager loading for LCP (Largest Contentful Paint)
               loading="eager"
               // @ts-ignore
               fetchPriority="high"
