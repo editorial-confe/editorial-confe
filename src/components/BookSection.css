@@ -1,0 +1,115 @@
+
+
+.book-section {
+  background-color: white;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.text-left { text-align: left; }
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.feature-item {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: var(--cream);
+  padding: 15px;
+  border-radius: 20px;
+  transition: transform 0.2s;
+}
+
+.feature-item:hover {
+  transform: translateX(10px);
+  background: #FFF3E0;
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: white;
+}
+
+.feature-icon svg { width: 30px; height: 30px; }
+
+.icon-star { background-color: var(--yellow); box-shadow: 0 4px 0 #d4a000; }
+.icon-print { background-color: var(--blue); box-shadow: 0 4px 0 #2a6bb5; }
+.icon-heart { background-color: var(--red); box-shadow: 0 4px 0 #b91d15; }
+
+.feature-item h4 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.card-frame {
+  background: white;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  position: relative;
+  transform: rotate(-2deg);
+  transition: all 0.3s;
+}
+
+.card-frame:hover {
+  transform: rotate(0deg) scale(1.02);
+  z-index: 10;
+}
+
+.gallery-main {
+  z-index: 2;
+}
+
+.gallery-grid-small {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: -30px;
+  padding-left: 20px;
+}
+
+.gallery-item:nth-child(1) { transform: rotate(3deg); }
+.gallery-item:nth-child(2) { transform: rotate(-3deg); }
+
+.gallery-label {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: var(--purple);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.gallery-label-small {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-top: 5px;
+}
+
+@media (max-width: 900px) {
+  .book-grid { grid-template-columns: 1fr; }
+  .text-left { text-align: center; }
+  .gallery-grid-small { margin-top: 20px; padding-left: 0; }
+  .card-frame { transform: rotate(0deg) !important; }
+}

@@ -1,0 +1,239 @@
+
+
+.navbar {
+  /* Glass effect handled by utility class in App.css, just removing default solid color */
+  background-color: rgba(255, 255, 255, 0.95);
+  height: 90px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.navbar-logo-wrapper {
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 5px 0;
+  min-width: 140px; 
+}
+
+.logo-img {
+  height: auto;
+  width: auto;
+  max-height: 75px;
+  max-width: 200px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.logo-img:hover {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.navbar-links button {
+  background: none;
+  border: none;
+  color: var(--blue-dark);
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  padding: 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.sound-toggle {
+  font-size: 1.5rem !important;
+  padding: 5px 10px !important;
+  background: #f0f0f0 !important;
+  border-radius: 50% !important;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.sound-toggle:hover {
+  transform: scale(1.1);
+  background: #e0e0e0 !important;
+}
+
+/* Icon Styles */
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.navbar-links button:not(.nav-btn-highlight):not(.nav-btn-login):not(.sound-toggle)::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--orange);
+  transition: width 0.3s;
+  border-radius: 2px;
+}
+
+.navbar-links button:not(.nav-btn-highlight):not(.nav-btn-login):not(.sound-toggle)::hover::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
+  align-items: center;
+}
+
+.nav-btn-highlight {
+  background-color: var(--green) !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 50px;
+  transition: transform 0.2s !important;
+  box-shadow: 0 4px 0px #066d3d;
+  transform: translateY(0);
+  font-size: 0.9rem !important;
+  white-space: nowrap;
+}
+
+.nav-btn-highlight:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0px #066d3d;
+}
+
+.nav-btn-highlight:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0px #066d3d;
+}
+
+.nav-btn-login {
+  border: 2px solid var(--blue-dark) !important;
+  padding: 8px 18px !important;
+  border-radius: 50px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem !important;
+  white-space: nowrap;
+}
+
+.nav-btn-login:hover {
+  background-color: var(--blue-dark) !important;
+  color: white !important;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 6px;
+  padding: 10px;
+  z-index: 1001;
+  color: var(--blue-dark);
+}
+
+@media (max-width: 1100px) {
+  .navbar {
+    height: 80px; 
+  }
+  
+  .navbar-logo-wrapper {
+    max-width: 60%; 
+    padding: 5px 0;
+  }
+
+  .logo-img {
+    max-height: 55px;
+  }
+
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: var(--white);
+    background-image: radial-gradient(circle at 10% 20%, rgba(250, 154, 10, 0.1) 0%, transparent 20%);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    z-index: 1000;
+    padding: 20px;
+  }
+
+  .navbar-links.active {
+    transform: translateX(0);
+  }
+
+  .navbar-links button {
+    font-size: 1.4rem;
+    width: 100%;
+    justify-content: center;
+    padding: 15px;
+    border-bottom: 1px dashed rgba(0,0,0,0.05);
+  }
+  
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .nav-actions {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin: 20px 0 0 0;
+    gap: 15px;
+  }
+
+  .nav-btn-highlight, .nav-btn-login {
+    width: 80% !important;
+    justify-content: center;
+    padding: 15px !important;
+    font-size: 1.2rem !important;
+  }
+}
