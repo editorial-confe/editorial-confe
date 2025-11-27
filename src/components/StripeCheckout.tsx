@@ -34,7 +34,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onSuccess, amount }) => {
 
     if (!cardElement) return;
 
-    // 1. Crear método de pago (Tokenización)
+    // 1. Crear método de pago (Tokenización en el navegador)
     const { error: paymentMethodError, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card: cardElement,
@@ -43,14 +43,37 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onSuccess, amount }) => {
     if (paymentMethodError) {
       setError(paymentMethodError.message || 'Error al procesar la tarjeta');
       setProcessing(false);
-    } else {
-      // Simulación de éxito para la demo
-      // En un entorno real, enviarías paymentMethod.id a tu backend
-      setTimeout(() => {
-          onSuccess();
-          setProcessing(false);
-      }, 1500);
+      return;
     }
+
+    // 2. Enviar el token al BACKEND REAL para hacer el cobro
+    try {
+        const response = await fetch('/api/pay', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                amount: amount,
+                paymentMethodId: paymentMethod.id,
+                email: 'cliente@ejemplo.com', // Deberías pasar el email real del form anterior
+                name: 'Cliente Web'
+            }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            onSuccess();
+        } else {
+            setError(result.error || 'El pago fue rechazado por el banco.');
+        }
+    } catch (err) {
+        setError('Error de conexión con el servidor. Intenta de nuevo.');
+        console.error(err);
+    }
+
+    setProcessing(false);
   };
 
   return (
@@ -81,7 +104,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onSuccess, amount }) => {
                 iconColor: '#ea251b'
               },
             },
-            hidePostalCode: true, // Simplificar para la demo
+            hidePostalCode: true,
           }}
         />
       </div>
