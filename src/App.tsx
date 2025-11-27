@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -15,6 +14,7 @@ import FloatingCTA from './components/FloatingCTA';
 import AdminDashboard from './components/AdminDashboard';
 import StripeCheckout from './components/StripeCheckout';
 import { initAudio, playSound } from './utils/audio';
+import confetti from 'canvas-confetti';
 
 // Types for detailed flows
 type AuthMode = 'login' | 'register' | 'forgot';
@@ -85,6 +85,15 @@ function App() {
   const handlePaymentSuccess = () => {
       setCheckoutStep('processing');
       playSound('success');
+
+      // Animación de confeti para celebrar la compra exitosa
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#2EC4B6', '#FFBF00', '#EA251B', '#8338EC']
+      });
+
       // Simulate final processing after Stripe confirms
       setTimeout(() => {
           setCheckoutStep('success');
@@ -93,15 +102,14 @@ function App() {
 
   const handleDownloadPDF = () => {
       playSound('success');
-      // Simulate file download
-      const element = document.createElement("a");
-      const fileContent = "Simulación de PDF: Coloreando con Jesús y María.\nLicencia otorgada a: " + (checkoutData.email || user?.email || "cliente");
-      const file = new Blob([fileContent], {type: 'text/plain'});
-      element.href = URL.createObjectURL(file);
-      element.download = `Libro_Jesus_y_Maria_Licencia_${checkoutData.email || 'usuario'}.pdf`;
-      document.body.appendChild(element); // Required for this to work in FireFox
-      element.click();
-      document.body.removeChild(element);
+      // Usar el archivo real de la carpeta public que mencionaste en el commit
+      const link = document.createElement("a");
+      // Codificación de URL para caracteres especiales (tildes)
+      link.href = "/Coloreando%20con%20Jes%C3%BAs%20y%20Mar%C3%ADa%20-%20Editorial%20Confe.pdf";
+      link.download = "Coloreando con Jesús y María - Editorial Confe.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
   };
 
   const closeCheckout = () => {

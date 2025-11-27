@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// APUNTAR AL ARCHIVO DE LA RAÍZ PARA EVITAR DUPLICADOS Y ERRORES
-import App from '../App';
-import '../App.css';
+import App from './App';
+import './App.css';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

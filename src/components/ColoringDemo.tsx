@@ -79,8 +79,6 @@ const ColoringDemo: React.FC = () => {
     setIsImageReady(false);
     const loadBgData = () => {
         const img = new Image();
-        // Para archivos locales, crossOrigin "Anonymous" suele funcionar bien en dev servers modernos (Vite),
-        // pero si da problemas se puede quitar. Lo dejamos por ahora.
         img.crossOrigin = "Anonymous"; 
         img.src = currentSceneUrl;
         
@@ -92,7 +90,6 @@ const ColoringDemo: React.FC = () => {
             if (bgCtx) {
                 bgCtx.fillStyle = "white";
                 bgCtx.fillRect(0, 0, 800, 1000);
-                // Draw image stretched to match canvas exactly for accurate pixel detection
                 bgCtx.drawImage(img, 0, 0, 800, 1000);
                 
                 try {
@@ -201,7 +198,6 @@ const ColoringDemo: React.FC = () => {
         const r = bgData[idx];
         const g = bgData[idx + 1];
         const b = bgData[idx + 2];
-        // Line detection threshold
         return (r < 180 && g < 180 && b < 180);
     };
 
@@ -306,7 +302,6 @@ const ColoringDemo: React.FC = () => {
     }
   };
 
-  // Robust line collision detection (Ray Casting)
   const checkLineCollision = (x0: number, y0: number, x1: number, y1: number) => {
     const dx = Math.abs(x1 - x0);
     const dy = Math.abs(y1 - y0);
@@ -342,7 +337,6 @@ const ColoringDemo: React.FC = () => {
     
     if (smartBrush && tool === 'brush' && bgImageDataRef.current && lastPosRef.current) {
         if (checkLineCollision(lastPosRef.current.x, lastPosRef.current.y, offsetX, offsetY)) {
-            // Hit a wall, stop drawing
             contextRef.current.beginPath(); 
             contextRef.current.moveTo(offsetX, offsetY); 
             lastPosRef.current = { x: offsetX, y: offsetY };
@@ -525,6 +519,7 @@ const ColoringDemo: React.FC = () => {
                  alt="Fondo" 
                  className="coloring-bg-img" 
                  crossOrigin="anonymous"
+                 loading="lazy"
                />
             </div>
 

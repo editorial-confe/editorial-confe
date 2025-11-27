@@ -13,27 +13,30 @@ const ContactSection: React.FC = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     if (emailInput && !emailRegex.test(emailInput.value)) {
-        alert("Por favor, ingresa una dirección de correo electrónico válida.");
+        alert("El correo electrónico no parece válido. Por favor verifica que incluya '@' y un dominio (ej: nombre@correo.com).");
         emailInput.focus();
         return;
     }
 
     // Validación de teléfono
     if (phoneInput && phoneInput.value) {
+        // Permite formatos como: 55 1234 5678, (55) 1234-5678, +52 55...
         const phoneRegex = /^[+]?[\d\s().-]{10,20}$/;
+        // Cuenta solo los dígitos reales
         const digitCount = phoneInput.value.replace(/\D/g, '').length;
 
         if (!phoneRegex.test(phoneInput.value) || digitCount < 10) {
-            alert("Por favor, ingresa un número de teléfono válido (mínimo 10 dígitos).");
+            alert("El número de teléfono parece incompleto. Por favor ingresa al menos 10 dígitos.");
             phoneInput.focus();
             return;
         }
     }
 
-    const confirmSend = window.confirm("¿Estás seguro de que deseas enviar este mensaje?");
+    // Confirmación antes de enviar
+    const confirmSend = window.confirm("Todo listo. ¿Deseas enviar tu mensaje ahora?");
     if (!confirmSend) return;
 
-    alert("Gracias por escribirnos, pronto nos pondremos en contacto contigo.");
+    alert("¡Mensaje enviado! Gracias por escribirnos, pronto nos pondremos en contacto contigo.");
     form.reset();
   };
 

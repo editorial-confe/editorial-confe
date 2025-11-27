@@ -44,10 +44,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onSuccess, amount }) => {
       setError(paymentMethodError.message || 'Error al procesar la tarjeta');
       setProcessing(false);
     } else {
-      console.log('[PaymentMethod]', paymentMethod);
-      // AQUÍ INTEGRARÍAS TU BACKEND REAL
-      // Normalmente enviarías paymentMethod.id a tu servidor para hacer el cargo
-      // Por ahora simulamos éxito si el token se creó bien
+      // Simulación de éxito para la demo
+      // En un entorno real, enviarías paymentMethod.id a tu backend
       setTimeout(() => {
           onSuccess();
           setProcessing(false);
@@ -58,10 +56,10 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onSuccess, amount }) => {
   return (
     <form onSubmit={handleSubmit} className="stripe-form-container">
       <div className="stripe-badges">
-         {/* Iconos de tarjetas simples */}
-         <span style={{fontSize: '24px'}}>💳</span>
-         <span style={{fontSize: '24px'}}>Visa</span>
-         <span style={{fontSize: '24px'}}>Mastercard</span>
+         {/* Iconos visuales de tarjetas */}
+         <div className="card-icon visa">Visa</div>
+         <div className="card-icon master">Master</div>
+         <div className="card-icon amex">Amex</div>
       </div>
 
       <div className="stripe-element-wrapper">
@@ -75,26 +73,42 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onSuccess, amount }) => {
                   color: '#aab7c4',
                 },
                 fontFamily: 'Nunito, sans-serif',
-                fontWeight: '600'
+                fontWeight: '600',
+                iconColor: '#3A86FF'
               },
               invalid: {
-                color: '#9e2146',
+                color: '#ea251b',
+                iconColor: '#ea251b'
               },
             },
+            hidePostalCode: true, // Simplificar para la demo
           }}
         />
       </div>
 
-      {error && <div className="card-error">⚠️ {error}</div>}
+      {error && (
+        <div className="card-error animate-shake">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          {error}
+        </div>
+      )}
 
       <button 
         type="submit" 
         disabled={!stripe || processing} 
         className="btn btn-primary" 
-        style={{width: '100%', opacity: processing ? 0.7 : 1}}
+        style={{width: '100%', opacity: processing ? 0.7 : 1, marginTop: '10px'}}
       >
-        {processing ? 'Procesando...' : `Pagar $${amount} MXN`}
+        {processing ? (
+           <span style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+             <span className="mini-spinner"></span> Procesando...
+           </span>
+        ) : `Pagar $${amount} MXN`}
       </button>
+      
+      <div className="security-footer">
+        🔒 Tus datos viajan encriptados vía SSL
+      </div>
     </form>
   );
 };
@@ -118,7 +132,7 @@ const StripeCheckout: React.FC<StripeCheckoutProps> = ({ onSuccess, onCancel, am
         onClick={onCancel} 
         style={{textAlign: 'center', marginTop: '15px', display: 'block'}}
       >
-        Cancelar
+        Cancelar y volver
       </div>
     </Elements>
   );

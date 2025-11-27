@@ -44,7 +44,6 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onSuccess, amount }) => {
       setError(paymentMethodError.message || 'Error al procesar la tarjeta');
       setProcessing(false);
     } else {
-      console.log('[PaymentMethod]', paymentMethod);
       // AQUÍ INTEGRARÍAS TU BACKEND REAL
       // Normalmente enviarías paymentMethod.id a tu servidor para hacer el cargo
       // Por ahora simulamos éxito si el token se creó bien

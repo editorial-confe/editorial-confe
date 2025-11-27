@@ -3,28 +3,43 @@
 }
 
 .stripe-element-wrapper {
-  background-color: white;
+  background-color: #f8f9fa;
   padding: 15px;
-  border: 2px solid #ddd;
+  border: 2px solid #e9ecef;
   border-radius: 12px;
   margin-bottom: 20px;
-  transition: border-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .stripe-element-wrapper:focus-within {
+  background-color: white;
   border-color: var(--blue);
-  box-shadow: 0 0 0 4px rgba(58, 134, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(58, 134, 255, 0.15);
 }
 
 .card-error {
+  background-color: #fff5f5;
   color: var(--red);
   font-size: 0.9rem;
+  padding: 10px;
+  border-radius: 8px;
   margin-bottom: 15px;
   text-align: left;
   font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
+  border: 1px solid #ffe3e3;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out;
 }
 
 .stripe-badges {
@@ -32,9 +47,36 @@
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
-.stripe-badges svg {
-  height: 24px;
+.card-icon {
+  background: #eee;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #555;
+  border: 1px solid #ddd;
+}
+
+.security-footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.mini-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
 }
