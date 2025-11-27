@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import LegalModals from './LegalModals';
 import './Footer.css';
