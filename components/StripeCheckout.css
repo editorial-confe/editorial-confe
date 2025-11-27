@@ -1,0 +1,40 @@
+.stripe-form-container {
+  width: 100%;
+}
+
+.stripe-element-wrapper {
+  background-color: white;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s;
+}
+
+.stripe-element-wrapper:focus-within {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(58, 134, 255, 0.1);
+}
+
+.card-error {
+  color: var(--red);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  text-align: left;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stripe-badges {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.stripe-badges svg {
+  height: 24px;
+}

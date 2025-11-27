@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -13,6 +12,7 @@ import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import FloatingCTA from './components/FloatingCTA';
 import AdminDashboard from './components/AdminDashboard';
+import StripeCheckout from './components/StripeCheckout';
 import { initAudio, playSound } from './utils/audio';
 
 // Types for detailed flows
@@ -31,6 +31,15 @@ function App() {
   
   // Simple "router" state
   const [view, setView] = useState<'home' | 'admin'>('home');
+
+  // Check for admin mode via URL param (GOD MODE)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('admin') === 'true') {
+        setUser({ name: "Administrador", email: "admin@confe.com", role: 'admin' });
+        setView('admin');
+    }
+  }, []);
 
   // Init audio context on first user click anywhere to comply with browser policies
   useEffect(() => {
@@ -72,16 +81,13 @@ function App() {
       setCheckoutStep('payment');
   };
 
-  const handleCheckoutSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setCheckoutStep('processing');
-    playSound('click');
-    
-    // Simulate payment processing
-    setTimeout(() => {
-        setCheckoutStep('success');
-        playSound('success');
-    }, 2500);
+  const handlePaymentSuccess = () => {
+      setCheckoutStep('processing');
+      playSound('success');
+      // Simulate final processing after Stripe confirms
+      setTimeout(() => {
+          setCheckoutStep('success');
+      }, 1500);
   };
 
   const handleDownloadPDF = () => {
@@ -111,7 +117,7 @@ function App() {
                     <div className="navbar-logo-wrapper" onClick={() => setView('home')}>
                         <span style={{fontWeight: 900, color: 'var(--blue-dark)', fontSize: '1.2rem'}}>← Volver al Sitio</span>
                     </div>
-                    <button className="btn btn-secondary small" onClick={() => { setUser(null); setView('home'); }}>Cerrar Sesión</button>
+                    <button className="btn btn-secondary small" onClick={() => { setUser(null); setView('home'); window.history.pushState({}, '', '/'); }}>Cerrar Sesión</button>
                 </div>
             </nav>
             <AdminDashboard />
@@ -201,7 +207,7 @@ function App() {
         </div>
       )}
 
-      {/* Checkout Modal with Secure Delivery Flow */}
+      {/* Checkout Modal with Stripe Integration */}
       {showCheckoutModal && (
         <div className="modal-overlay" onClick={closeCheckout}>
           <div className="modal-content glass-panel checkout-modal" onClick={e => e.stopPropagation()}>
@@ -242,36 +248,21 @@ function App() {
                 </>
             )}
 
-            {/* Step 2: Payment */}
+            {/* Step 2: Payment (Real Stripe Integration) */}
             {checkoutStep === 'payment' && (
                 <>
-                     <div className="back-btn" onClick={() => setCheckoutStep('details')}>← Volver</div>
                      <h2 className="section-title" style={{fontSize: '2rem'}}>Pago Seguro</h2>
                      <div className="secure-badge-row">
-                         <span>🔒 Encriptación SSL 256-bit</span>
-                         <span>💳 Stripe / PayPal</span>
+                         <span>🔒 SSL Seguro</span>
+                         <span>💳 Procesado por Stripe</span>
                      </div>
-                     <form onSubmit={handleCheckoutSubmit}>
-                        <div className="form-group">
-                            <label>Número de Tarjeta</label>
-                            <input type="text" placeholder="0000 0000 0000 0000" pattern="\d*" maxLength={19} required />
-                        </div>
-                        <div className="row-groups">
-                            <div className="form-group">
-                                <label>Expira</label>
-                                <input type="text" placeholder="MM/YY" maxLength={5} required />
-                            </div>
-                            <div className="form-group">
-                                <label>CVC</label>
-                                <input type="text" placeholder="123" maxLength={3} required />
-                            </div>
-                        </div>
-                        <div className="form-group">
-                             <label>Titular de la tarjeta</label>
-                             <input type="text" placeholder="Como aparece en la tarjeta" required />
-                        </div>
-                        <button className="btn btn-primary" style={{width: '100%', marginTop: '10px'}}>Pagar $200.00 MXN</button>
-                     </form>
+                     
+                     {/* STRIPE COMPONENT */}
+                     <StripeCheckout 
+                        amount={200} 
+                        onSuccess={handlePaymentSuccess} 
+                        onCancel={() => setCheckoutStep('details')} 
+                     />
                 </>
             )}
 

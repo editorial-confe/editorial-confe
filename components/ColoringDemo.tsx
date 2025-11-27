@@ -1,11 +1,11 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { playSound, speakText } from '../utils/audio';
 import './ColoringDemo.css';
 
-// USE PROXY TO BYPASS IMGUR HOTLINKING/CORS ISSUES
-const SCENE_BAUTISMO = "https://wsrv.nl/?url=https://i.imgur.com/n5YrcqN.png";
-const SCENE_HUIDA = "https://wsrv.nl/?url=https://i.imgur.com/kx6J467.png";
+// RUTAS LOCALES: Al ser del mismo origen, NO NECESITAN PROXY NI WESERV.NL
+// Esto soluciona los problemas de "tainted canvas" (CORS) y el bote de pintura funcionará perfecto.
+const SCENE_BAUTISMO = "/bautismo.png";
+const SCENE_HUIDA = "/huida.png";
 
 const PALETTE = [
   "#ea251b", "#fa9a0a", "#fce314", "#0a894e", "#0a83bd",
@@ -79,7 +79,9 @@ const ColoringDemo: React.FC = () => {
     setIsImageReady(false);
     const loadBgData = () => {
         const img = new Image();
-        img.crossOrigin = "Anonymous";
+        // Para archivos locales, crossOrigin "Anonymous" suele funcionar bien en dev servers modernos (Vite),
+        // pero si da problemas se puede quitar. Lo dejamos por ahora.
+        img.crossOrigin = "Anonymous"; 
         img.src = currentSceneUrl;
         
         img.onload = () => {

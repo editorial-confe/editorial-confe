@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { playSound } from '../utils/audio';
 import './Hero.css';
@@ -15,7 +14,8 @@ const Hero: React.FC = () => {
     }
   };
 
-  const COVER_URL = "https://wsrv.nl/?url=https://i.imgur.com/mcqNeOF.png";
+  // ARCHIVO LOCAL EXACTO SEGÚN TU CAPTURA
+  const COVER_URL = "/portada.png";
 
   return (
     <section id="hero" className="hero-section">

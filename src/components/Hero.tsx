@@ -14,8 +14,8 @@ const Hero: React.FC = () => {
     }
   };
 
-  // USAR WESERV.NL PARA EVITAR BLOQUEOS
-  const COVER_URL = "https://images.weserv.nl/?url=https://i.imgur.com/mcqNeOF.png";
+  // ARCHIVO LOCAL EXACTO SEGÚN TU CAPTURA
+  const COVER_URL = "/portada.png";
 
   return (
     <section id="hero" className="hero-section">

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { playSound, toggleMute, getMuteState } from '../utils/audio';
 import './Navbar.css';
@@ -38,7 +37,8 @@ const Navbar: React.FC<NavbarProps> = ({ onLoginClick, user }) => {
     }
   };
 
-  const LOGO_URL = "https://wsrv.nl/?url=https://i.imgur.com/fFxf5Fe.png";
+  // ARCHIVO LOCAL EXACTO SEGÚN TU CAPTURA
+  const LOGO_URL = "/logo.png";
 
   return (
     <nav className="navbar glass-panel">

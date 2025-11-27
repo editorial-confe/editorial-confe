@@ -37,8 +37,8 @@ const Navbar: React.FC<NavbarProps> = ({ onLoginClick, user }) => {
     }
   };
 
-  // USAR WESERV.NL PARA EVITAR BLOQUEOS Y PROBLEMAS DE CORS
-  const LOGO_URL = "https://images.weserv.nl/?url=https://i.imgur.com/fFxf5Fe.png";
+  // ARCHIVO LOCAL EXACTO SEGÚN TU CAPTURA
+  const LOGO_URL = "/logo.png";
 
   return (
     <nav className="navbar glass-panel">

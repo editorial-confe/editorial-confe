@@ -2,10 +2,10 @@ import React from 'react';
 import './BookSection.css';
 
 const BookSection: React.FC = () => {
-  // USAR WESERV.NL PARA EVITAR BLOQUEOS
-  const BACK_COVER_URL = "https://images.weserv.nl/?url=https://i.imgur.com/MLAEWic.png";
-  const SAMPLE_BAUTISMO = "https://images.weserv.nl/?url=https://i.imgur.com/n5YrcqN.png";
-  const SAMPLE_HUIDA = "https://images.weserv.nl/?url=https://i.imgur.com/kx6J467.png";
+  // IMÁGENES LOCALES DE TU CARPETA PUBLIC
+  const BACK_COVER_URL = "/contraportada.png";
+  const SAMPLE_BAUTISMO = "/bautismo.png";
+  const SAMPLE_HUIDA = "/huida.png";
 
   return (
     <section id="libro" className="section book-section">
