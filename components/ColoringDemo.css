@@ -85,7 +85,7 @@
     font-weight: 800;
     color: var(--blue-dark);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.1s;
     font-size: 0.95rem;
     display: flex;
     align-items: center;
@@ -99,18 +99,26 @@
     border-color: var(--blue);
 }
 
+/* ESTADO ACTIVO DE ALTO CONTRASTE */
+.tool-btn.active {
+    background-color: var(--blue);
+    color: white;
+    border-color: var(--blue-dark);
+    /* Efecto de botón presionado */
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.2); 
+    transform: translateY(2px);
+}
+
+/* Mantener el botón presionado incluso si pasas el mouse por encima */
+.tool-btn.active:hover {
+    transform: translateY(2px);
+    border-color: var(--blue-dark);
+}
+
 .tool-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
     box-shadow: none;
-}
-
-.tool-btn.active {
-    background: #E3F2FD;
-    border-color: var(--blue);
-    color: var(--blue-dark);
-    box-shadow: 0 4px 0 #BBDEFB;
-    transform: translateY(2px);
 }
 
 .rainbow-btn {
@@ -119,9 +127,12 @@
     color: #8e24aa;
 }
 
+/* Rainbow Activo específico */
 .rainbow-btn.active {
-    background: linear-gradient(to right, #ffcdd2, #e1bee7);
-    border-color: #8e24aa;
+    background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%);
+    border-color: #ff6b6b;
+    color: #5e0967;
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.15);
 }
 
 .narrator-btn {
@@ -130,6 +141,11 @@
     color: #F57F17;
     margin-top: 15px;
     width: 100%;
+}
+
+.narrator-btn:active {
+    background: #FFECB3;
+    transform: translateY(2px);
 }
 
 .stamp-selector {
@@ -156,6 +172,7 @@
     background: #FFF176;
     border-color: #FBC02D;
     transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .history-controls {
@@ -235,6 +252,9 @@
   transform: scale(1.2);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   z-index: 2;
+  /* Añadir un ring para resaltar el color seleccionado */
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
 }
 
 /* Story Bubble */
